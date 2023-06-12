@@ -43,7 +43,7 @@ const products = [
 ];
 
 
-const SalesOverview = () => {
+const ChatHistory = () => {
 
     // select
     const [month, setMonth] = React.useState('1');
@@ -198,4 +198,4 @@ const SalesOverview = () => {
     );
 };
 
-export default SalesOverview;
+export default ChatHistory;

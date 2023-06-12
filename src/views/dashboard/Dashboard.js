@@ -3,7 +3,7 @@ import { Grid, Box } from '@mui/material';
 import PageContainer from 'src/components/container/PageContainer';
 
 // components
-import SalesOverview from './components/ChatHistory';
+import ChatHistory from './components/ChatHistory';
 import YearlyBreakup from './components/TokensWidget';
 import MonthlyUsage from './components/MonthlyUsage';
 
@@ -13,7 +13,7 @@ const Dashboard = () => {
       <Box>
         <Grid container spacing={3}>
           <Grid item xs={12} lg={8}>
-            <SalesOverview />
+            <ChatHistory/>
           </Grid>
           <Grid item xs={12} lg={4}>
             <Grid container spacing={3}>
