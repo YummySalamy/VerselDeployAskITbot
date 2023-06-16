@@ -2,7 +2,7 @@ import React from 'react';
 import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from '../../components/shared/DashboardCard';
 
-const Shadow = () => {
+const ChatBot = () => {
   return (
     <PageContainer title="AskITbot" description="This is the ChatBot tab">
 
@@ -15,4 +15,4 @@ const Shadow = () => {
   );
 };
 
-export default Shadow;
+export default ChatBot;

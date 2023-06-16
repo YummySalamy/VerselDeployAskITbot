@@ -4,7 +4,7 @@ import PageContainer from 'src/components/container/PageContainer';
 
 // components
 import ChatHistory from './components/ChatHistory';
-import YearlyBreakup from './components/TokensWidget';
+import TokensWidget from './components/TokensWidget';
 import MonthlyUsage from './components/MonthlyUsage';
 
 const Dashboard = () => {
@@ -18,7 +18,7 @@ const Dashboard = () => {
           <Grid item xs={12} lg={4}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <YearlyBreakup />
+                <TokensWidget />
               </Grid>
               <Grid item xs={12}>
                 <MonthlyUsage />

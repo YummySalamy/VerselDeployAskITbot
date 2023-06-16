@@ -6,7 +6,7 @@ import { IconCircleKey } from '@tabler/icons';
 
 import DashboardCard from '../../../components/shared/DashboardCard';
 
-const YearlyBreakup = () => {
+const TokensWidget = () => {
   // chart color
   const theme = useTheme();
   const primary = theme.palette.primary.main;
@@ -101,4 +101,4 @@ const YearlyBreakup = () => {
   );
 };
 
-export default YearlyBreakup;
+export default TokensWidget;
