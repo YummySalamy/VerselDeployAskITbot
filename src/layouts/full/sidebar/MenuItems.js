@@ -1,5 +1,5 @@
 import {
-  IconAperture, IconLayoutDashboard, IconLogin, IconUserPlus, IconMessageChatbot, IconHierarchy3, IconBrandPrisma, IconSettings
+  IconAperture, IconLayoutDashboard, IconLogin, IconUserPlus, IconMessageChatbot, IconPackages, IconHierarchy3, IconBrandPrisma, IconSettings
 } from '@tabler/icons';
 
 import { uniqueId } from 'lodash';
@@ -19,6 +19,12 @@ const Menuitems = [
   {
     navlabel: true,
     subheader: 'Utilidades',
+  },
+  {
+    id: uniqueId(),
+    title: 'Entrenamiento',
+    icon: IconPackages,
+    href: '/ui/filestorage',
   },
   {
     id: uniqueId(),

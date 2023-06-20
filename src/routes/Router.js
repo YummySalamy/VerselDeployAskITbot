@@ -10,6 +10,7 @@ const Configuration = Loadable(lazy(() => import('../views/sample-page/Configura
 const ManageSources = Loadable(lazy(() => import('../views/icons/ManageSourcesPage')))
 const EmbeddingsPage = Loadable(lazy(() => import('../views/utilities/Embeddings')))
 const ChatBot = Loadable(lazy(() => import('../views/utilities/Chatbot')))
+const FileStorage = Loadable(lazy(() => import('../views/utilities/Filestorage')))
 const Error = Loadable(lazy(() => import('../views/authentication/Error')));
 
 const Router = [
@@ -23,6 +24,7 @@ const Router = [
       { path: '/icons', exact: true, element: <ManageSources /> },
       { path: '/ui/typography', exact: true, element: <EmbeddingsPage /> },
       { path: '/ui/shadow', exact: true, element: <ChatBot /> },
+      { path: '/ui/filestorage', exact: true, element: <FileStorage /> },
       { path: '*', element: <Navigate to="/auth/404" /> },
     ],
   },
