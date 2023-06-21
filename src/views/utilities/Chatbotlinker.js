@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { Table, Box } from '@mui/material';
 import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from '../../components/shared/DashboardCard';
 import { UploadOutlined, EditOutlined, DiffTwoTone, GlobalOutlined, QuestionCircleOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Layout, Menu, Button, Upload, Input, Space, message } from 'antd';
+import { Table, Layout, Menu, Button, Upload, Input, Space, message } from 'antd';
 import axios from 'axios';
 
 const { Sider, Content } = Layout;
 const { Search } = Input;
 const { TextArea } = Input;
 
-const FileStorage = () => {
+const Chatbotlinker = () => {
   const [selectedOption, setSelectedOption] = useState('sub1');
+  const [tableData, setTableData] = useState([]);
 
   const handleMenuClick = (event) => {
     setSelectedOption(event.key);
@@ -20,7 +20,7 @@ const FileStorage = () => {
   const handleTextSubmit = () => {
     const textInput = document.getElementById('text-input');
     const additionalNameInput = document.getElementById('additional-name-input');
-    const fileInput = document.getElementById('file-input'); // Agrega un input de tipo "file" en tu formulario y un id
+    const fileInput = document.getElementById('file-input');
 
     if (textInput && additionalNameInput && fileInput && fileInput.files.length > 0) {
       const url = 'https://ai-chain-upload-service-dw2j52225q-uc.a.run.app/texto/';
@@ -31,15 +31,19 @@ const FileStorage = () => {
       data.append('files', fileInput.files[0]);
 
       axios.post(url, data, { headers: { 'Content-Type': 'multipart/form-data' } })
-        .then(response => {
+        .then(response => { 
           console.log(response.data);
-          // Realizar acciones adicionales con la respuesta de la API
-          // ...
+          const newData = {
+            key: response.data.key,
+            name: additionalNameInput.value,
+            age: response.data.age,
+            address: response.data.address,
+            description: response.data.description,
+          };
+          setTableData(prevData => [...prevData, newData]);
         })
         .catch(error => {
           console.error('Error al enviar la solicitud:', error);
-          // Manejar el error de la solicitud a la API
-          // ...
         });
     }
   };
@@ -56,13 +60,17 @@ const FileStorage = () => {
       axios.post(url, data)
         .then(response => {
           console.log(response.data);
-          // Realizar acciones adicionales con la respuesta de la API
-          // ...
+          const newData = {
+            key: url,
+            name: webUrlInput.value,
+            age: response.data.age,
+            address: response.data.address,
+            description: response.data.description,
+          };
+          setTableData(prevData => [...prevData, newData]);
         })
         .catch(error => {
           console.error('Error al enviar la solicitud:', error);
-          // Manejar el error de la solicitud a la API
-          // ...
         });
     }
   };
@@ -142,39 +150,74 @@ const FileStorage = () => {
     },
   ];
 
+  const columns = [
+    {
+      title: 'Nombre de ChatBot',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Estado',
+      dataIndex: 'address',
+      key: 'address',
+    },
+    {
+      title: 'Acción',
+      dataIndex: '',
+      key: 'x',
+      render: () => <a>Borrar <DeleteOutlined /></a>,
+    },
+  ];
+
+  const expandedRowRender = (record) => (
+    <p style={{ margin: 0 }}>{record.description}</p>
+  );
+
+  const rowExpandable = (record) => record.name !== 'Not Expandable';
+
   return (
-    <PageContainer title="Filestorage" description="Esta es la página de almacenamiento de datos">
-      <DashboardCard title="Control de datos">
-        <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
-          <Table>
-            <tbody>
-              <tr>
-                <td>
-                  <Layout>
-                    <Sider width={200}>
-                      <Menu
-                        mode="inline"
-                        defaultSelectedKeys={['sub1']}
-                        onClick={handleMenuClick}
-                        style={{ height: '100%', borderRight: 0 }}
-                      >
-                        {items.map((item) => (
-                          <Menu.Item key={item.key} icon={item.icon}>
-                            {item.label}
-                          </Menu.Item>
-                        ))}
-                      </Menu>
-                    </Sider>
-                    <Content style={{ padding: '0 24px' }}>{renderContent()}</Content>
-                  </Layout>
-                </td>
-              </tr>
-            </tbody>
-          </Table>
-        </Box>
+    <PageContainer>
+      <DashboardCard title="Control de Datos">
+        <Layout>
+          <Sider width={200} theme="light">
+            <Menu
+              mode="inline"
+              selectedKeys={[selectedOption]}
+              onClick={handleMenuClick}
+              style={{ height: '100%', borderRight: 0 }}
+            >
+              {items.map((item) => (
+                <Menu.Item key={item.key} icon={item.icon}>
+                  {item.label}
+                </Menu.Item>
+              ))}
+            </Menu>
+          </Sider>
+          <Content style={{ padding: '16px' }}>
+            {renderContent()}
+          </Content>
+        </Layout>
+      </DashboardCard>
+      <DashboardCard title="Lista de Datos">
+        <Table
+          columns={columns}
+          dataSource={tableData}
+          expandable={{
+            expandedRowRender: (record) => (
+              <p
+                style={{
+                  margin: 0,
+                }}
+              >
+                {record.description}
+              </p>
+            ),
+            rowExpandable: (record) => record.name !== 'Not Expandable',
+          }}
+        />
       </DashboardCard>
     </PageContainer>
   );
 };
 
-export default FileStorage;
+export default Chatbotlinker;
